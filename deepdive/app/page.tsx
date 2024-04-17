@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import './styles.css';
+import Tag from './components/Tag';
 
 export default function Home() {
   const initialText = "Let's figure out how FRONT-END works!"
@@ -30,11 +31,17 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full">
-      <div className='flex space-x-2 flex-wrap'>
-        <h1 className='font-bold text-[70px]'>{displayText}</h1>
-        <span className='animate-blink text-[70px]'>|</span>
+    <div className='h-screen overflow-auto'>
+      <div className="flex flex-col justify-center items-center w-full h-full">
+        <div className="flex space-x-2 flex-wrap">
+          <h1 className="font-bold text-[70px]">{displayText}</h1>
+          <span className="animate-blink text-[70px]">|</span>
+        </div>
+      </div>
+      <div className="flex justify-center items-center w-full h-full">
+        <Tag name={"Render"} url={""} />
       </div>
     </div>
+
   );
 }
