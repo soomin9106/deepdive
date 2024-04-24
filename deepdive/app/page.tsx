@@ -31,7 +31,7 @@ export default function Home() {
 
 
   return (
-    <div className='h-screen overflow-auto'>
+    <div id="main" className='h-screen overflow-auto'>
       <div className="flex flex-col justify-center items-center w-full h-full">
         <div className="flex space-x-2 flex-wrap">
           <h1 className="font-bold text-[70px]">{displayText}</h1>
@@ -39,7 +39,7 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-center items-center w-full h-full">
-        <Tag name={"Render"} url={""} />
+        <Tag name={"Render"} url={"/render"} />
       </div>
     </div>
 
