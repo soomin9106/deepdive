@@ -39,7 +39,10 @@ export default function Home() {
         </div>
       </div>
       <div className="flex justify-center items-center w-full h-full">
-        <Tag name={"Render"} url={"/render"} />
+        <div className='grid grid-cols-4 gap-4'>
+          <Tag name={"Render"} url={"/render"} />
+          <Tag name={"Memoization"} url={"/memoization"} />
+        </div>
       </div>
     </div>
 
