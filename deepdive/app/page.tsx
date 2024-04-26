@@ -41,6 +41,7 @@ export default function Home() {
       <div className="flex justify-center items-center w-full h-full">
         <div className='grid grid-cols-4 gap-4'>
           <Tag name={"Render"} url={"/render"} />
+          <Tag name={"JS Async"} url={"/async"} />
           <Tag name={"Memoization"} url={"/memoization"} />
         </div>
       </div>
