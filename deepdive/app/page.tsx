@@ -43,6 +43,7 @@ export default function Home() {
           <Tag name={"Render"} url={"/render"} />
           <Tag name={"JS Async"} url={"/async"} />
           <Tag name={"Memoization"} url={"/memoization"} />
+          <Tag name={"State Management"} url={"/state"} />
         </div>
       </div>
     </div>
