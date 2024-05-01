@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 export type CState = { counter: number }
-export type Value = { text: string }
+// export type Value = { text: string }
 
 // declare state outside component
 let state:CState = {
@@ -75,20 +75,20 @@ export const useStore = <CState extends unknown>(store: Store<CState>) => {
     return [state, store.set] as const
 }
 
-// export const useStoreSelector = <CState extends unknown, Value extends unknown>(
-//     store: Store<CState>,
-//     selector: (state: CState) => Value
-// ) => {
-//     const [state, setState] = useState(() => selector(store.get()))
+export const useStoreSelector = <CState extends unknown, Value extends unknown>(
+    store: Store<CState>,
+    selector: (state: CState) => Value
+) => {
+    const [state, setState] = useState(() => selector(store.get()))
 
-//     useEffect(() => {
-//         const unsubscribe = store.subscribe(() => {
-//             const value = selector(store.get())
-//             setState(value)
-//         })
+    useEffect(() => {
+        const unsubscribe = store.subscribe(() => {
+            const value = selector(store.get())
+            setState(value)
+        })
 
-//         return unsubscribe
-//     }, [store, selector])
+        return unsubscribe
+    }, [store, selector])
 
-//     return state
-// }
+    return state
+}

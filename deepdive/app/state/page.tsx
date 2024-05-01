@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Counter1 from "../components/state/Counter1"
 import Counter2 from "../components/state/Counter2"
-import { NCounter1, NCounter2 } from "../components/state/Counters"
+import { NCounter1, NCounter2, NCounter3, TextEditor } from "../components/state/Counters"
 
 const State = () => {
     return (
@@ -20,6 +20,15 @@ const State = () => {
                     </CardContent>
                     <CardContent className="w-[50%]">
                         <NCounter2 />
+                    </CardContent>
+                </div>
+                <div className="w-full border-[1px] border-black my-5"></div>
+                <div className="flex flex-row items-center space-x-10 w-full">
+                    <CardContent className="w-[50%]">
+                        <NCounter3 />
+                    </CardContent>
+                    <CardContent className="w-[50%]">
+                        <TextEditor />
                     </CardContent>
                 </div>
             </Card>
