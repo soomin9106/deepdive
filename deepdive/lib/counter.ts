@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react"
+import { useSubscription } from "use-subscription";
 
 export type CState = { counter: number }
 // export type Value = { text: string }
 
 // declare state outside component
-let state:CState = {
+let state: CState = {
     counter: 0
 }
 
@@ -23,13 +24,14 @@ export const setCounter = <T>(nextState: Initializer<T>) => {
 
 
 // implement store
-type Store<CState> = {
+export type Store<CState> = {
     get: () => CState
     set: (action: Initializer<CState>) => CState
     subscribe: (callback: () => void) => () => void
 }
 
 // create Store
+// CState extends unknown => 타입의 유연성을 허용하기 위해
 export const createStore = <CState extends unknown>(
     initialState: Initializer<CState>
 ): Store<CState> => {
@@ -39,10 +41,10 @@ export const createStore = <CState extends unknown>(
 
     const get = () => state
     const set = (nextState: CState | ((prev: CState) => CState)) => {
-        state = 
+        state =
             typeof nextState === 'function'
-            ? (nextState as (prev: CState) => CState)(state)
-            : nextState
+                ? (nextState as (prev: CState) => CState)(state)
+                : nextState
 
         callbacks.forEach((callback) => callback())
 
@@ -92,3 +94,31 @@ export const useStoreSelector = <CState extends unknown, Value extends unknown>(
 
     return state
 }
+
+// Context 이용
+export type CounterStore = {
+    count: number
+    text: string
+}
+
+export const CounterStoreContext = createContext<Store<CounterStore>>(
+    createStore<CounterStore>({ count: 0, text: 'hello' })
+);
+
+export const useCounterContextSelector = <CState extends unknown>(
+    selector: (state: CounterStore) => CState
+) => {
+    const store = useContext(CounterStoreContext);
+    const subscription = useSubscription(
+        useMemo(
+            () => ({
+                getCurrentValue: () => selector(store.get()),
+                subscribe: store.subscribe,
+            }),
+            [store, selector]
+        )
+    );
+
+    return [subscription, store.set] as const;
+
+};

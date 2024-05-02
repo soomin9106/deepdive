@@ -44,6 +44,7 @@ export default function Home() {
           <Tag name={"JS Async"} url={"/async"} />
           <Tag name={"Memoization"} url={"/memoization"} />
           <Tag name={"State Management"} url={"/state"} />
+          <Tag name={"State Management w.Context"} url={"/context_state"} />
         </div>
       </div>
     </div>

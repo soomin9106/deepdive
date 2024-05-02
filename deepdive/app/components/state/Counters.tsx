@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createStore, useStore, useStoreSelector } from "@/lib/counter";
+import { CounterStore, createStore, useCounterContextSelector, useStore, useStoreSelector } from "@/lib/counter";
 import { SmilePlus, UserPlus } from "lucide-react";
 import { ChangeEvent, useCallback, useEffect } from "react";
 
@@ -86,6 +86,47 @@ export const TextEditor = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         store2.set((prev) => ({ ...prev, text: e.target.value }))
+    }
+
+    return (
+        <div className="flex justify-center items-center w-full flex-col space-y-10">
+            <h1>Change Text</h1>
+            <Input value={text} onChange={handleChange} />
+        </div>
+    )
+}
+
+export const ContextCounter = () => {
+    const [counter, setStore] = useCounterContextSelector(
+        useCallback((state: CounterStore) => state.count, []),
+    )
+
+    const handleClick = () => {
+        setStore((prev) => ({ ...prev, count: prev.count + 1 }))
+    }
+
+
+    return (
+        <div className="flex justify-center items-center w-full flex-col space-y-10">
+            <h1>Click Button to increase Count!!</h1>
+            <div className="flex space-x-6 items-center">
+                <Button size='icon' onClick={handleClick} variant="ghost">
+                    <UserPlus />
+                </Button>
+                <span className="text-[32px]">{counter}</span>
+            </div>
+        </div>
+    )
+
+}
+
+export const ContextTextEditor = () => {
+    const [text, setStore] = useCounterContextSelector(
+        useCallback((state: CounterStore) => state.text, []),
+    )
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setStore((prev) => ({ ...prev, text: e.target.value }))
     }
 
     return (
