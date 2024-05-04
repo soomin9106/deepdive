@@ -101,24 +101,35 @@ export type CounterStore = {
     text: string
 }
 
+// useSubscription 사용하는 코드 => Not working
+// export const useCounterContextSelector = <CState extends unknown>(
+//     selector: (state: CounterStore) => CState
+// ) => {
+//     const store = useContext(CounterStoreContext);
+//     const subscription = useSubscription(
+//         useMemo(
+//             () => ({
+//                 getCurrentValue: () => selector(store.get()),
+//                 subscribe: store.subscribe,
+//             }),
+//             [store, selector]
+//         )
+//     );
+
+//     return [subscription, store.set] as const;
+
+// };
+
+// createContext에서 생성된 타입을 CounterStore로 정의
 export const CounterStoreContext = createContext<Store<CounterStore>>(
     createStore<CounterStore>({ count: 0, text: 'hello' })
 );
 
-export const useCounterContextSelector = <CState extends unknown>(
-    selector: (state: CounterStore) => CState
+// CounterStoreContext를 사용하여 상태를 선택하는 훅
+export const useCounterContextSelector = <CState extends unknown, Value extends unknown>(
+    selector: (state: CounterStore) => Value
 ) => {
     const store = useContext(CounterStoreContext);
-    const subscription = useSubscription(
-        useMemo(
-            () => ({
-                getCurrentValue: () => selector(store.get()),
-                subscribe: store.subscribe,
-            }),
-            [store, selector]
-        )
-    );
-
-    return [subscription, store.set] as const;
-
+    const state = useStoreSelector(store, selector);
+    return [state, store.set] as const;
 };
