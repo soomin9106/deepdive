@@ -45,6 +45,7 @@ export default function Home() {
           <Tag name={"Memoization"} url={"/memoization"} />
           <Tag name={"State Management"} url={"/state"} />
           <Tag name={"State Management w.Context"} url={"/context_state"} />
+          <Tag name={'Security'} url={'/security'} />
         </div>
       </div>
     </div>
